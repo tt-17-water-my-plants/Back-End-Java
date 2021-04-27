@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import tt17.bw.watermyplants.models.UserPhone;
+import tt17.bw.watermyplants.services.UserphoneService;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -15,27 +17,27 @@ import java.util.List;
  * The entry point for client to access user, email combinations
  */
 @RestController
-@RequestMapping("/useremails")
-public class UseremailController
+@RequestMapping("/userphones")
+public class UserphoneController
 {
     /**
      * Using the Useremail service to process user, email combinations data
      */
     @Autowired
-    UseremailService useremailService;
+    UserphoneService userphoneService;
 
     /**
      * List of all users emails
-     * <br>Example: <a href="http://localhost:2019/useremails/useremails">http://localhost:2019/useremails/useremails</a>
+     * <br>Example: <a href="http://localhost:2019/userphones/userphones">http://localhost:2019/useremails/useremails</a>
      *
      * @return JSON list of all users emails
      */
-    @GetMapping(value = "/useremails",
+    @GetMapping(value = "/userphones",
         produces = "application/json")
-    public ResponseEntity<?> listAllUseremails()
+    public ResponseEntity<?> listAllUserphones()
     {
-        List<Useremail> allUserEmails = useremailService.findAll();
-        return new ResponseEntity<>(allUserEmails,
+        List<UserPhone> allUserPhones = userphoneService.findAll();
+        return new ResponseEntity<>(allUserPhones,
             HttpStatus.OK);
     }
 
@@ -43,16 +45,16 @@ public class UseremailController
      * Return the user email combination referenced by the given primary key
      * <br>Example: <a href="http://localhost:2019/useremails/useremail/8">http://localhost:2019/useremails/useremail/8</a>
      *
-     * @param useremailId the primary key of the user email combination you seek
+     * @param userphoneId the primary key of the user email combination you seek
      * @return JSON object of the user email combination you seek with a status of OK
      */
-    @GetMapping(value = "/useremail/{useremailId}",
+    @GetMapping(value = "/userphone/{userphoneId}",
         produces = "application/json")
     public ResponseEntity<?> getUserEmailById(
         @PathVariable
-            Long useremailId)
+            Long userphoneId)
     {
-        Useremail ue = useremailService.findUseremailById(useremailId);
+        UserPhone ue = userphoneService.findUserphoneById(userphoneId);
         return new ResponseEntity<>(ue,
             HttpStatus.OK);
     }
@@ -64,14 +66,14 @@ public class UseremailController
      * @param useremailid the primary key of the user email combination you wish to remove
      * @return Status of OK
      */
-    @DeleteMapping(value = "/useremail/{useremailid}")
-    public ResponseEntity<?> deleteUserEmailById(
-        @PathVariable
-            long useremailid)
-    {
-        useremailService.delete(useremailid);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+//    @DeleteMapping(value = "/useremail/{useremailid}")
+//    public ResponseEntity<?> deleteUserEmailById(
+//        @PathVariable
+//            long useremailid)
+//    {
+//        useremailService.delete(useremailid);
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
 
     /**
      * Change the email associated with the given user email combination
@@ -81,17 +83,17 @@ public class UseremailController
      * @param emailaddress The new email (String)
      * @return Status of OK
      */
-    @PutMapping("/useremail/{useremailid}/email/{emailaddress}")
-    public ResponseEntity<?> updateUserEmail(
-        @PathVariable
-            long useremailid,
-        @PathVariable
-            String emailaddress)
-    {
-        useremailService.update(useremailid,
-            emailaddress);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+//    @PutMapping("/useremail/{useremailid}/email/{emailaddress}")
+//    public ResponseEntity<?> updateUserEmail(
+//        @PathVariable
+//            long useremailid,
+//        @PathVariable
+//            String emailaddress)
+//    {
+//        useremailService.update(useremailid,
+//            emailaddress);
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
 
     /**
      * Adds a new user email combination
@@ -102,27 +104,27 @@ public class UseremailController
      * @throws URISyntaxException Exception if something does not work in creating the location header
      * @see UseremailService#save(long, String) UseremailService.save(long, String)
      */
-    @PostMapping(value = "/user/{userid}/email/{emailaddress}")
-    public ResponseEntity<?> addNewUserEmail(
-        @PathVariable
-            long userid,
-        @PathVariable
-            String emailaddress) throws
-                                 URISyntaxException
-    {
-        Useremail newUserEmail = useremailService.save(userid,
-            emailaddress);
-
-        // set the location header for the newly created resource
-        HttpHeaders responseHeaders = new HttpHeaders();
-        URI newUserEmailURI = ServletUriComponentsBuilder.fromCurrentServletMapping()
-            .path("/useremails/useremail/{useremailid}")
-            .buildAndExpand(newUserEmail.getUseremailid())
-            .toUri();
-        responseHeaders.setLocation(newUserEmailURI);
-
-        return new ResponseEntity<>(null,
-            responseHeaders,
-            HttpStatus.CREATED);
-    }
+//    @PostMapping(value = "/user/{userid}/email/{emailaddress}")
+//    public ResponseEntity<?> addNewUserEmail(
+//        @PathVariable
+//            long userid,
+//        @PathVariable
+//            String emailaddress) throws
+//                                 URISyntaxException
+//    {
+//        UserPhone newUserEmail = useremailService.save(userid,
+//            emailaddress);
+//
+//        // set the location header for the newly created resource
+//        HttpHeaders responseHeaders = new HttpHeaders();
+//        URI newUserEmailURI = ServletUriComponentsBuilder.fromCurrentServletMapping()
+//            .path("/useremails/useremail/{useremailid}")
+//            .buildAndExpand(newUserEmail.getUseremailid())
+//            .toUri();
+//        responseHeaders.setLocation(newUserEmailURI);
+//
+//        return new ResponseEntity<>(null,
+//            responseHeaders,
+//            HttpStatus.CREATED);
+//    }
 }
