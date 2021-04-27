@@ -47,6 +47,6 @@ public class PlantController
             .toUri();
         responseHeaders.setLocation(newPlantURI);
 
-        return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED)
+        return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
     }
 }

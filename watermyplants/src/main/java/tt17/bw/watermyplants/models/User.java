@@ -17,8 +17,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "users")
-public class User
-    extends Auditable
+public class User extends Auditable
 {
     /**
      * The primary key (long) of the users table.
@@ -30,8 +29,7 @@ public class User
     /**
      * The username (String). Cannot be null and must be unique
      */
-    @Column(nullable = false,
-        unique = true)
+    @Column(nullable = false)
     private String username;
 
     /**
@@ -44,8 +42,7 @@ public class User
     /**
      * Primary email account of user. Could be used as the userid. Cannot be null and must be unique.
      */
-    @Column(nullable = false,
-        unique = true)
+    @Column(nullable = false)
     private String primaryphone;
 
     /**
@@ -70,6 +67,17 @@ public class User
     private Set<UserRoles> roles = new HashSet<>();
 
     /**
+     * Part of the join relationship between user and plant
+     * connects users to the user plants combination
+     */
+    @OneToMany(mappedBy = "user",
+        cascade = CascadeType.ALL,
+        orphanRemoval = true)
+    @JsonIgnoreProperties(value = "user",
+        allowSetters = true)
+    private List<Plant> plants = new ArrayList<>();
+
+    /**
      * Default constructor used primarily by the JPA.
      */
     public User()
@@ -83,7 +91,7 @@ public class User
      *
      * @param username     The username (String) of the user
      * @param password     The password (String) of the user
-     * @param primaryphone The primary email (String) of the user
+     * @param primaryphone The primary phone (String) of the user
      */
     public User(
         String username,
@@ -152,7 +160,7 @@ public class User
      */
     public void setPrimaryphone(String primaryphone)
     {
-        this.primaryphone = primaryphone.toLowerCase();
+        this.primaryphone = primaryphone;
     }
 
     /**
@@ -244,5 +252,15 @@ public class User
         }
 
         return rtnList;
+    }
+
+    public List<Plant> getPlants()
+    {
+        return plants;
+    }
+
+    public void setPlants(List<Plant> plants)
+    {
+        this.plants = plants;
     }
 }

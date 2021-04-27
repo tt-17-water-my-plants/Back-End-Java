@@ -26,7 +26,7 @@ public class Plant extends Auditable
     @Column
     private String imageurl;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "userid",
     nullable = false)
     @JsonIgnoreProperties(value = "plants",

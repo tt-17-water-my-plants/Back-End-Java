@@ -9,7 +9,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import tt17.bw.watermyplants.models.Plant;
 import tt17.bw.watermyplants.models.User;
+import tt17.bw.watermyplants.services.PlantService;
 import tt17.bw.watermyplants.services.UserService;
 
 import javax.validation.Valid;
@@ -29,6 +31,9 @@ public class UserController
      */
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private PlantService plantService;
 
     /**
      * Returns a list of all users
@@ -83,6 +88,15 @@ public class UserController
         User u = userService.findByName(userName);
         return new ResponseEntity<>(u,
             HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/user/{userId}/plants",
+        produces = "application/json")
+    public ResponseEntity<?> getUserPlants(@PathVariable long userId)
+    {
+        List<Plant> rtnList = plantService.findAllPlants();
+        return new ResponseEntity<>(rtnList, HttpStatus.OK);
+
     }
 
     /**

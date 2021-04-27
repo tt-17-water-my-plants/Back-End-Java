@@ -1,15 +1,13 @@
 package tt17.bw.watermyplants.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.oauth2.client.resource.OAuth2AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import tt17.bw.watermyplants.exceptions.ResourceNotFoundException;
-import tt17.bw.watermyplants.models.Role;
-import tt17.bw.watermyplants.models.User;
-import tt17.bw.watermyplants.models.UserPhone;
-import tt17.bw.watermyplants.models.UserRoles;
+import tt17.bw.watermyplants.models.*;
 import tt17.bw.watermyplants.repository.UserRepository;
 
 import java.util.ArrayList;
@@ -34,6 +32,9 @@ public class UserServiceImpl
      */
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private PlantService plantService;
 
     @Autowired
     private HelperFunctions helperFunctions;
@@ -65,6 +66,7 @@ public class UserServiceImpl
         return list;
     }
 
+
     @Transactional
     @Override
     public void delete(long id)
@@ -85,6 +87,22 @@ public class UserServiceImpl
         return uu;
     }
 
+    /**
+     * gets User plants.
+     */
+    @Override
+    public List<Plant> findAllUserPlants(long id)
+    {
+        List<Plant> rtnlist = new ArrayList<>();
+        plantService.findAllPlants()
+            .iterator()
+            .forEachRemaining(rtnlist::add);
+        return rtnlist;
+    }
+
+    /**
+     * Saves new user and their data.
+     */
     @Transactional
     @Override
     public User save(User user)
@@ -101,8 +119,8 @@ public class UserServiceImpl
         newUser.setUsername(user.getUsername()
             .toLowerCase());
         newUser.setPasswordNoEncrypt(user.getPassword());
-        newUser.setPrimaryphone(user.getPrimaryphone()
-            .toLowerCase());
+        newUser.setPrimaryphone(user.getPrimaryphone());
+        newUser.setPlants(user.getPlants());
 
         newUser.getRoles()
             .clear();
@@ -121,6 +139,18 @@ public class UserServiceImpl
         {
             newUser.getUserphones()
                 .add(new UserPhone(up.getUserphone(),
+                    newUser));
+        }
+
+        newUser.getPlants()
+            .clear();
+        for (Plant pl : user.getPlants())
+        {
+            newUser.getPlants()
+                .add(new Plant(pl.getNickname(),
+                    pl.getSpecies(),
+                    pl.getH20frequency(),
+                    pl.getImageurl(),
                     newUser));
         }
 

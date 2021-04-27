@@ -1,5 +1,6 @@
 package tt17.bw.watermyplants.services;
 
+import tt17.bw.watermyplants.models.Plant;
 import tt17.bw.watermyplants.models.User;
 
 import java.util.List;
@@ -43,6 +44,14 @@ public interface UserService
      * @return The User with the given name or throws an exception if not found.
      */
     User findByName(String name);
+
+    /**
+     * Returns the user with the given name
+     *
+     * @param id The user name (long) of the User you seek.
+     * @return The Users plants.
+     */
+    List<Plant> findAllUserPlants(long id);
 
     /**
      * Deletes the user record and its useremail items from the database based off of the provided primary key
