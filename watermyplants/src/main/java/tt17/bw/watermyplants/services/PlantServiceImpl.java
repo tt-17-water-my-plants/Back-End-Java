@@ -5,6 +5,7 @@ import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import tt17.bw.watermyplants.exceptions.ResourceNotFoundException;
 import tt17.bw.watermyplants.models.Plant;
+import tt17.bw.watermyplants.models.User;
 import tt17.bw.watermyplants.repository.PlantRepository;
 
 import java.util.ArrayList;
@@ -96,6 +97,8 @@ public class PlantServiceImpl implements PlantService
         newPlant.setH20frequency(plant.getH20frequency());
         newPlant.setImageurl(plant.getImageurl());
         newPlant.setUser(userService.findUserById(plant.getUser().getUserid()));
+
+
 
          return plantrepos.save(newPlant);
     }

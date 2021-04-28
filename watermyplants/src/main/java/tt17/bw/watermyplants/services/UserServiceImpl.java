@@ -120,7 +120,7 @@ public class UserServiceImpl
             .toLowerCase());
         newUser.setPasswordNoEncrypt(user.getPassword());
         newUser.setPrimaryphone(user.getPrimaryphone());
-        newUser.setPlants(user.getPlants());
+//        newUser.setPlants(user.getPlants());
 
         newUser.getRoles()
             .clear();

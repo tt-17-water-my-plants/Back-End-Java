@@ -42,7 +42,9 @@ public class UserController
      * @return JSON list of all users with a status of OK
      * @see UserService#findAll() UserService.findAll()
      */
-    @PreAuthorize("hasAnyRole('ADMIN')")
+
+//    @PreAuthorize("hasAnyRole('ADMIN')")
+    @ApiOperation(value = "list all users")
     @GetMapping(value = "/users",
         produces = "application/json")
     public ResponseEntity<?> listAllUsers()
@@ -60,6 +62,7 @@ public class UserController
      * @return JSON object of the user you seek
      * @see UserService#findUserById(long) UserService.findUserById(long)
      */
+    @ApiOperation(value = "Gets a user by id")
     @GetMapping(value = "/user/{userId}",
         produces = "application/json")
     public ResponseEntity<?> getUserById(
@@ -135,8 +138,7 @@ public class UserController
     public ResponseEntity<?> addNewUser(
         @Valid
         @RequestBody
-            User newuser) throws
-                          URISyntaxException
+            User newuser) throws URISyntaxException
     {
         newuser.setUserid(0);
         newuser = userService.save(newuser);

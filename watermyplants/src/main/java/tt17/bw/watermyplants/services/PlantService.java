@@ -13,9 +13,7 @@ public interface PlantService
 
     void delete(long id);
 
-    Plant update(
-        long plantid,
-        Plant plant);
+    Plant update(long plantid,Plant plant);
 
     Plant save(Plant plant);
 }

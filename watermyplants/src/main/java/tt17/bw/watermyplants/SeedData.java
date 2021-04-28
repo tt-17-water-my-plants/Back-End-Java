@@ -110,28 +110,6 @@ public class SeedData implements CommandLineRunner
         u3.getRoles()
             .add(new UserRoles(u3,
                 r2));
-        userService.save(u3);
-
-//        user
-        User u4 = new User("George",
-            "ftCat",
-            "4259181234");
-        u4.getRoles()
-            .add(new UserRoles(u4,
-                r2));
-        userService.save(u4);
-
-
-
-        String plant5Nm = "Wiggles";
-        Plant plant5 = new Plant(plant5Nm,
-            "String of banannas",
-            "Every other week",
-            null,
-            u4);
-        u4.getPlants()
-            .add(plant5);
-
 
         String plant4Nm = "Sad sad";
         Plant plant4 = new Plant(plant4Nm,
@@ -148,8 +126,31 @@ public class SeedData implements CommandLineRunner
             "Every other week",
             null,
             u3);
+
         u3.getPlants()
             .add(plant6);
 
+        userService.save(u3);
+
+//        user
+        User u4 = new User("George",
+            "ftCat",
+            "4259181234");
+        u4.getRoles()
+            .add(new UserRoles(u4,
+                r2));
+
+        String plant5Nm = "Wiggles";
+        Plant plant5 = new Plant(plant5Nm,
+            "String of banannas",
+            "Every other week",
+            null,
+            u4);
+        u4.getPlants()
+            .add(plant5);
+
+        userService.save(u4);
+
+//         plantService.save(plant2);
     }
 }
