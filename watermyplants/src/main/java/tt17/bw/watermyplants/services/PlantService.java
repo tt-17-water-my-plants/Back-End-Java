@@ -11,6 +11,11 @@ public interface PlantService
 
     Plant findPlantById(long id);
 
+    /**
+     * Deletes the user record and its useremail items from the database based off of the provided primary key
+     *
+     * @param id id The primary key (long) of the user you seek.
+     */
     void delete(long id);
 
     Plant update(long plantid,Plant plant);

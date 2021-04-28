@@ -117,7 +117,7 @@
     </dependencies>
 
     <build>
-        <finalName>tt17-watermyplants</finalName>
+        <finalName>tt17-watermyplants-java</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

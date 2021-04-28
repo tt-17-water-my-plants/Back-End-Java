@@ -79,7 +79,14 @@ public class PlantServiceImpl implements PlantService
 
         return plantrepos.save(currentPlant);
     }
-
+    /**
+     * Given a complete user object, saves that user object in the database.
+     * If a primary key is provided, the record is completely replaced
+     * If no primary key is provided, one is automatically generated and the record is added to the database.
+     *
+     * @param plant the user object to be saved
+     * @return the saved user object including any automatically generated fields
+     */
     @Override
     public Plant save(Plant plant)
     {
@@ -98,8 +105,6 @@ public class PlantServiceImpl implements PlantService
         newPlant.setImageurl(plant.getImageurl());
         newPlant.setUser(userService.findUserById(plant.getUser().getUserid()));
 
-
-
-         return plantrepos.save(newPlant);
+        return plantrepos.save(newPlant);
     }
 }
