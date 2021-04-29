@@ -53,7 +53,6 @@ public class RoleServiceImpl
         return list;
     }
 
-
     @Override
     public Role findRoleById(long id)
     {
